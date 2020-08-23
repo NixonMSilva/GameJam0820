@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour 
+{
 
     [SerializeField]
 
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
         if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
         {
-            Debug.Log("Enemy is in mud!");
+            // Debug.Log("Player is in mud!");
             return true;
         }
         return false;
@@ -141,7 +142,6 @@ public class PlayerController : MonoBehaviour {
 
     private void WinRound ()
     {
-
+        GameEvent.current.PlayerVictory();
     }
-
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-   [SerializeField]
+    [SerializeField]
 
     private float speed = 5;
 
@@ -26,15 +26,16 @@ public class EnemyController : MonoBehaviour
 
     private bool isStuck;
 
-    void Start() {
-
+    void Start() 
+    {
         movePoint.parent = null; // Detach partent
         isStuck = false;
     }
 
 
 
-    void Update() {
+    void Update() 
+    {
 
         float movementAmout = speed * Time.deltaTime;
 
@@ -120,6 +121,6 @@ public class EnemyController : MonoBehaviour
 
     private void LoseRound ()
     {
-
+        GameEvent.current.EnemyVictory();
     }
 }
