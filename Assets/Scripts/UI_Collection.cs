@@ -7,14 +7,15 @@ public class UI_Collection
 {
     private GameObject ui_canvas;
     private Text ui_topText;
-    private Text ui_buttonText;
+    private GameObject ui_retryButton;
+    private GameObject ui_nextLevelButton;
 
     public UI_Collection ()
     {
         ui_canvas = GameObject.Find("Canvas");
-        Debug.Log(GameObject.Find("TopText"));
         ui_topText = GameObject.Find("TopText").GetComponent<Text>();
-        ui_buttonText = GameObject.Find("ButtonText").GetComponent<Text>();
+        ui_retryButton = GameObject.Find("RetryButton");
+        ui_nextLevelButton = GameObject.Find("NextLevelButton");
         DeactivateCanvas();
     }
 
@@ -28,13 +29,18 @@ public class UI_Collection
         ui_canvas.SetActive(false);
     }
 
+    public void RetryButton (bool status)
+    {
+        ui_retryButton.SetActive(status);
+    }
+
+    public void NextLevelButton (bool status)
+    {
+        ui_nextLevelButton.SetActive(status);
+    }
+
     public void SetTopText (string text)
     {
         ui_topText.text = text;
-    }
-
-    public void SetButtonText (string text)
-    {
-        ui_buttonText.text = text;
     }
 }

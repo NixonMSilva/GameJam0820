@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         // Check if the player has reached a victory point
         if (CheckVictory(movePoint.position))
         {
-            Debug.Log("Player reached victory point!");
+            //Debug.Log("Player reached victory point!");
             WinRound();
         }
     }
@@ -123,7 +123,6 @@ public class PlayerController : MonoBehaviour
     private bool CheckVictory (Vector3 position)
     {
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
-        //Debug.Log("Position [PLAYER]:" + position + offset);
         if (Physics2D.OverlapCircle(position + offset, 0.01f, victoryMask))
             return true;
         return false;
@@ -134,7 +133,7 @@ public class PlayerController : MonoBehaviour
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
         if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
         {
-            // Debug.Log("Player is in mud!");
+            Debug.Log("Player is in mud!");
             return true;
         }
         return false;

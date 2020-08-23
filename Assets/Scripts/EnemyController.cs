@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
         // Check if the enemy has reached a victory point
         if (CheckVictory(movePoint.position))
         {
-            Debug.Log("Enemey reached victory point!");
+            //Debug.Log("Enemey reached victory point!");
             LoseRound();
         }
     }
@@ -103,7 +103,6 @@ public class EnemyController : MonoBehaviour
     private bool CheckVictory (Vector3 position)
     {
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
-        //Debug.Log("Position [ENEMY]:" + position + offset);
         if (Physics2D.OverlapCircle(position + offset, 0.01f, victoryMask))
             return true;
         return false;
@@ -114,6 +113,7 @@ public class EnemyController : MonoBehaviour
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
         if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
         {
+            Debug.Log("Enemy is in mud!");
             return true;
         }
         return false;

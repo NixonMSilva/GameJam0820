@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    private UI_Collection userInterace;
+    private UI_Collection userInterface;
 
     private void Awake ()
     {
-        userInterace = new UI_Collection();
+        userInterface = new UI_Collection();
         ResumeTime();
     }
 
@@ -22,15 +22,19 @@ public class GameController : MonoBehaviour
     private void PlayerVictory ()
     {
         StartCoroutine(StopTimeCooldown());
-        userInterace.SetTopText("Victory!");    
-        userInterace.ActivateCanvas();    
+        userInterface.SetTopText("Victory!");    
+        userInterface.NextLevelButton(true);
+        userInterface.RetryButton(false);
+        userInterface.ActivateCanvas();
     }
 
     private void EnemyVictory ()
     {
         StartCoroutine(StopTimeCooldown());
-        userInterace.SetTopText("Defeat!");
-        userInterace.ActivateCanvas();
+        userInterface.SetTopText("Defeat!");
+        userInterface.RetryButton(true);
+        userInterface.NextLevelButton(false);
+        userInterface.ActivateCanvas();
     }
 
     private void OnDestroy ()
