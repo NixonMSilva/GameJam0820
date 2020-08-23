@@ -16,12 +16,20 @@ public class EnemyController : MonoBehaviour
 
     private LayerMask obstacleMask;
 
+    [SerializeField]
 
+    private LayerMask victoryMask;
+
+    [SerializeField]
+
+    private LayerMask mudMask;
+
+    private bool isStuck;
 
     void Start() {
 
         movePoint.parent = null; // Detach partent
-
+        isStuck = false;
     }
 
 
@@ -65,17 +73,53 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
-
     public void Move(Vector3 direction) {
 
         Vector3 newPosition = movePoint.position + direction;
 
-        if (!Physics2D.OverlapCircle(newPosition, 0.2f, obstacleMask)) {
-
-            movePoint.position = newPosition;
-
+        if (!Physics2D.OverlapCircle(newPosition, 0.01f, obstacleMask)) 
+        {
+            // If the enemy isn't stuck, then move, after moving, check if the enemy hasn't stepped into mud
+            if (!isStuck)
+            {
+                movePoint.position = newPosition;
+                isStuck = CheckMud(movePoint.position);
+            }
+            else
+            {
+                isStuck = false;
+            }
         }
+
+        // Check if the enemy has reached a victory point
+        if (CheckVictory(movePoint.position))
+        {
+            Debug.Log("Enemey reached victory point!");
+            LoseRound();
+        }
+    }
+
+    private bool CheckVictory (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        //Debug.Log("Position [ENEMY]:" + position + offset);
+        if (Physics2D.OverlapCircle(position + offset, 0.01f, victoryMask))
+            return true;
+        return false;
+    }
+
+    private bool CheckMud (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void LoseRound ()
+    {
 
     }
 }

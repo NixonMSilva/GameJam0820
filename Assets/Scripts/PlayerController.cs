@@ -16,14 +16,24 @@ public class PlayerController : MonoBehaviour {
 
     private LayerMask obstacleMask;
 
+    [SerializeField]
+
+    private LayerMask victoryMask;
+
+    [SerializeField]
+
+    private LayerMask mudMask;
+
     private EnemyController enemy;
     private Vector3 direction;
+
+    private bool isStuck;
 
     void Start() 
     {
 
         movePoint.parent = null; // Detach partent
-
+        isStuck = false;
     }
 
     void Awake()
@@ -82,17 +92,55 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-
-
     private void Move(Vector3 direction) {
 
         Vector3 newPosition = movePoint.position + direction;
 
-        if (!Physics2D.OverlapCircle(newPosition, 0.2f, obstacleMask)) {
+        // If there's no obstacle, move to a new position
+        if (!Physics2D.OverlapCircle(newPosition, 0.01f, obstacleMask)) {
 
-            movePoint.position = newPosition;
-
+            // If the player isn't stuck, then move, after moving, check if the player hasn't stepped into mud
+            if (!isStuck)
+            {
+                movePoint.position = newPosition;
+                isStuck = CheckMud(movePoint.position);
+            }
+            else
+            {
+                isStuck = false;
+            }
         }
+
+        // Check if the player has reached a victory point
+        if (CheckVictory(movePoint.position))
+        {
+            Debug.Log("Player reached victory point!");
+            WinRound();
+        }
+    }
+
+    private bool CheckVictory (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        //Debug.Log("Position [PLAYER]:" + position + offset);
+        if (Physics2D.OverlapCircle(position + offset, 0.01f, victoryMask))
+            return true;
+        return false;
+    }
+
+    private bool CheckMud (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
+        {
+            Debug.Log("Enemy is in mud!");
+            return true;
+        }
+        return false;
+    }
+
+    private void WinRound ()
+    {
 
     }
 
