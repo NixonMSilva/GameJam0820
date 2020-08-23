@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             s.audioSource = gameObject.AddComponent<AudioSource>();
-            s.audioSource.clip = s.audioSource.GetComponent<AudioSource>().clip;
+            s.audioSource.clip = s.audio;
             s.audioSource.volume = s.volume;
             s.audioSource.pitch = s.pitch;
         }

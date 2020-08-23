@@ -45,12 +45,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - audioSource: {fileID: 0}
-    name: Audio1
-    audio: {fileID: 0}
-    volume: 0
+    name: Walk
+    audio: {fileID: 8300000, guid: 494eb035524dd8141bffa554ad006ef0, type: 3}
+    volume: 1
     pitch: 0
+  - audioSource: {fileID: 0}
+    name: Puddle
+    audio: {fileID: 8300000, guid: c85e040acc60a244a8158ed52a6719c5, type: 3}
+    volume: 1
+    pitch: 1
   - audioSource: {fileID: 0}
     name: Audio2
     audio: {fileID: 0}
-    volume: 0
+    volume: 1
+    pitch: 1
+  - audioSource: {fileID: 0}
+    name: Audio2
+    audio: {fileID: 0}
+    volume: 1
     pitch: 0

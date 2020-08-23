@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     [SerializeField]
 
     private float speed = 5;
@@ -24,7 +26,16 @@ public class EnemyController : MonoBehaviour
 
     private LayerMask mudMask;
 
+    [SerializeField]
+
+    private LayerMask bombMask;
+
     private bool isStuck;
+
+    private void Awake ()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
 
     void Start() 
     {
@@ -98,6 +109,11 @@ public class EnemyController : MonoBehaviour
             //Debug.Log("Enemey reached victory point!");
             LoseRound();
         }
+
+        if (CheckBomb(movePoint.position))
+        {
+            LoseRound();
+        }
     }
 
     private bool CheckVictory (Vector3 position)
@@ -113,9 +129,17 @@ public class EnemyController : MonoBehaviour
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
         if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
         {
-            Debug.Log("Enemy is in mud!");
+            // Debug.Log("Enemy is in mud!");
+            audioManager.PlaySound("Puddle");
             return true;
         }
+        return false;
+    }
+    private bool CheckBomb (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        if (Physics2D.OverlapCircle(position + offset, 0.1f, bombMask))
+            return true;
         return false;
     }
 

@@ -170,6 +170,9 @@ MonoBehaviour:
   mudMask:
     serializedVersion: 2
     m_Bits: 1024
+  bombMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &6713843717358770950
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +229,9 @@ MonoBehaviour:
   mudMask:
     serializedVersion: 2
     m_Bits: 1024
+  bombMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &6713843717397907768
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,4 +44,9 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Time.timeScale = 1f;
     }
+
+    public void ReturnToMenu ()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

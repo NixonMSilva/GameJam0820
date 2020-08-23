@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour 
 {
+    private AudioManager audioManager;
 
     [SerializeField]
 
@@ -25,6 +26,10 @@ public class PlayerController : MonoBehaviour
 
     private LayerMask mudMask;
 
+    [SerializeField]
+
+    private LayerMask bombMask;
+
     private EnemyController enemy;
     private Vector3 direction;
 
@@ -40,6 +45,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         enemy = transform.parent.GetComponentInChildren<EnemyController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
 
@@ -104,6 +110,7 @@ public class PlayerController : MonoBehaviour
             if (!isStuck)
             {
                 movePoint.position = newPosition;
+                audioManager.PlaySound("Walk");
                 isStuck = CheckMud(movePoint.position);
             }
             else
@@ -117,6 +124,11 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Player reached victory point!");
             WinRound();
+        }
+
+        if (CheckBomb(movePoint.position))
+        {
+            LoseRound();
         }
     }
 
@@ -133,14 +145,28 @@ public class PlayerController : MonoBehaviour
         Vector3 offset = new Vector3(0f, -0.5f, 0f);
         if (Physics2D.OverlapCircle(position + offset, 0.1f, mudMask))
         {
-            Debug.Log("Player is in mud!");
+            // Debug.Log("Player is in mud!");
+            audioManager.PlaySound("Puddle");
             return true;
         }
+        return false;
+    }
+
+    private bool CheckBomb (Vector3 position)
+    {
+        Vector3 offset = new Vector3(0f, -0.5f, 0f);
+        if (Physics2D.OverlapCircle(position + offset, 0.1f, bombMask))
+            return true;
         return false;
     }
 
     private void WinRound ()
     {
         GameEvent.current.PlayerVictory();
+    }
+
+    private void LoseRound()
+    {
+        GameEvent.current.EnemyVictory();
     }
 }

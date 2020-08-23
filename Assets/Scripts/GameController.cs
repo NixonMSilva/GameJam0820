@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     private void PlayerVictory ()
     {
         StartCoroutine(StopTimeCooldown());
-        userInterface.SetTopText("Victory!");    
+        userInterface.SetTopText("Nível Completo!");    
         userInterface.NextLevelButton(true);
         userInterface.RetryButton(false);
         userInterface.ActivateCanvas();
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
     private void EnemyVictory ()
     {
         StartCoroutine(StopTimeCooldown());
-        userInterface.SetTopText("Defeat!");
+        userInterface.SetTopText("Derrotado!");
         userInterface.RetryButton(true);
         userInterface.NextLevelButton(false);
         userInterface.ActivateCanvas();
